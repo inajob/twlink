@@ -1,0 +1,11 @@
+if you execute this project, you must create below files.
+
+/db/twlink.db  # sqlite3 dbfile (and execute create.sql)
+
+/twlink/config.php # setting secret stetting(like below)
+=== BEBIN ===
+<?php
+define("TW_CONSUMER_KEY","xxxxxxx");
+define("TW_CONSUMER_SECRET","xxxxxxxxxxxxxxxxxxxx");
+?>
+=== END ===
