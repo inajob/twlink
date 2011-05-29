@@ -35,12 +35,16 @@
 </p>
 
 <p>
-<?php foreach($view['data'] as $v){?>
+<?php
+foreach($view['data'] as $v){
+   if($v[1]>0){
+?>
     <div class="tag">
       <a href="?action=tag&tag=<?php echo urlencode($v[0]); ?>"><?php echo esc($v[0]); ?></a>
       <a href="#" onclick="autoInput('tag','<?php echo esc($v[0]); ?>')">■</a>
     </div>
 <?php
+   }
    }
 ?>
 <br class="clbr" />
