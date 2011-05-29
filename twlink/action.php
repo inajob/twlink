@@ -161,7 +161,7 @@ function login(){
     
     $view["url"] = $to->getAuthorizeURL($token);
   }else{
-    $view['info'] = 'already ligin';
+    $view['info'] = 'already login';
   }
   return true;
 }
