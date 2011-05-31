@@ -68,7 +68,8 @@ function clink($db, $tag, $user, $cid){
   if($rarr === false){
     $ret3 = dbe($db,'INSERT INTO tag_user_content(tid,uid,cid) values(?,?,?)',array($ret,$ret2,$cid));
     error_log(var_export(array($ret,$ret2,$cid),true));
-    error_log("success clink ".$ret3);
+    error_log("success clink ". var_export($ret3,true));
+    error_log(var_export($db->errorInfo(),true));
     return $ret3;
   }else{
     error_log("tid:".$ret);
