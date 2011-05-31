@@ -65,6 +65,7 @@ function clink($db, $tag, $user, $cid){
   
   $sth = dbq($db,'SELECT id from tag_user_content where tid=? AND uid=?',array($ret,$ret2));
   $rarr = $sth->fetch();
+  unset($sth);
   if($rarr === false){
     $ret3 = dbe($db,'INSERT INTO tag_user_content(tid,uid,cid) values(?,?,?)',array($ret,$ret2,$cid));
     error_log(var_export(array($ret,$ret2,$cid),true));
