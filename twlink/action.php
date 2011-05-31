@@ -482,9 +482,13 @@ function margePage(){
 
   $sth = dbq($db, 'SELECT id,cid from tag_user_content where tid=?',array($tid));
   $row = $sth->fetch();
+  $sth->closeCursor();
 
   $sth = dbq($db, 'SELECT id,cid from tag_user_content where tid=?',array($pid));
   $row2 = $sth->fetch();
+  $sth->closeCursor();
+
+  unset($sth);
   
   if($row !== false){
     error_log("tid content is not null");
