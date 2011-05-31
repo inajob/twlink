@@ -24,7 +24,7 @@
       <a href="?action=tag&tag=<?php echo urlencode($v[0]); ?>"><?php echo esc($v[0]); ?></a>
     </h3>
     <div>
-      <textarea name='content'><?php echo esc($v[1]); ?></textarea>
+      <textarea name="content"><?php echo esc($v[1]); ?></textarea>
     </div>
     <div class="right"><input type='submit' value='update'></div>
     

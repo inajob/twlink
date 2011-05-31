@@ -67,6 +67,7 @@ function clink($db, $tag, $user, $cid){
   $rarr = $sth->fetch();
   if($rarr === false){
     $ret3 = dbe($db,'INSERT INTO tag_user_content(tid,uid,cid) values(?,?,?)',array($ret,$ret2,$cid));
+    error_log("success clink");
     return $ret3;
   }else{
     error_log("tid:".$ret);
@@ -470,9 +471,11 @@ function friendPage(){
 
 function margePage(){
   $db = dbInit();
-  $tid = mkTag($db, $_REQUEST['tag']);
-  $pid = mkTag($db, $_REQUEST['ptag']);
+  $tid = mkTag($db, urldecode($_REQUEST['tag']));
+  $pid = mkTag($db, urldecode($_REQUEST['ptag']));
   
+  error_log(var_export($_REQUEST,true));
+
   $sth = dbq($db, 'SELECT id,cid from tag_user_content where tid=?',array($tid));
   $row = $sth->fetch();
 
