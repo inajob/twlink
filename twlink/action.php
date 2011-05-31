@@ -477,14 +477,15 @@ function margePage(){
   $db = dbInit();
   $tid = mkTag($db, urldecode($_REQUEST['tag']));
   $pid = mkTag($db, urldecode($_REQUEST['ptag']));
-  
+  $user = $_SESSION['screen_name'];
+  $uid = mkUser($db, $user);
   error_log(var_export($_REQUEST,true));
 
-  $sth = dbq($db, 'SELECT id,cid from tag_user_content where tid=?',array($tid));
+  $sth = dbq($db, 'SELECT id,cid from tag_user_content where uid=? AND tid=?',array($uid, $tid));
   $row = $sth->fetch();
   $sth->closeCursor();
 
-  $sth = dbq($db, 'SELECT id,cid from tag_user_content where tid=?',array($pid));
+  $sth = dbq($db, 'SELECT id,cid from tag_user_content where uid=? AND tid=?',array($uid, $pid));
   $row2 = $sth->fetch();
   $sth->closeCursor();
 
@@ -502,7 +503,6 @@ function margePage(){
   }
   error_log('cid:'.$cid);
   error_log('tag:'.$_REQUEST['tag']);
-  $user = $_SESSION['screen_name'];
   return clink($db, $_REQUEST['tag'], $user, $cid);
 }
 
