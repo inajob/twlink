@@ -1,4 +1,5 @@
 <?php require('header.inc');?>
+
 <h2><img src="http://img.tweetimag.es/i/<?php echo urlencode($view['user']); ?>"/>
   <a href="?action=user&user=<?php echo urlencode($view['user']); ?>"><?php echo esc($view['user']);?></a>
 </h2>

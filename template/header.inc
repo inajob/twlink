@@ -125,6 +125,22 @@ img.half{
 
    --></style>
    <script src="jquery-1.6.1.min.js"></script>
+   <script src="wiki.js"></script>
+<!-- マジック これ怖いかな？ -->
+<script>
+<!--
+$(function(){
+    $(".desc").each(function(e){
+	var wiki = new WikiParser();
+	var s = this.innerHTML;
+	$(this).text("");
+	wiki.parse(s,this);
+      });
+    
+  })
+-->
+</script>
+
   </head>
   <body>
     <h1><a href="?action=top">twlink</a></h1>
