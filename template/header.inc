@@ -21,10 +21,22 @@
   float:left;
    width:50%;
  }
+.round{
+  border-radius: 10px;/* CSS3草案 */
+  -webkit-border-radius: 10px;/* Safari,Google Chrome用 */
+     -moz-border-radius: 10px;/* Firefox用 */
+ }
 .piece{
   background-color:#dfd;
   margin:0.2em;
    padding:0.2em;
+   border:solid 2px;
+ }
+.piece2{
+  background-color:#ff9;
+  margin:0.2em;
+   padding:0.2em;
+   border:solid 2px;
  }
 div.main{
  margin:0.1em;
@@ -88,6 +100,9 @@ img.half{
 }
 .small{
   font-size:small;
+ }
+.full{
+ width:100%;
  }
 .right{
   text-align:right;

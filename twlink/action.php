@@ -301,8 +301,16 @@ function myDump(){
 	     " ORDER BY content.id desc"
 	     ,array($uid));
   $data = array();
+  $undesctag = array();
   while($row = $sth->fetch()){
-    array_push($data,$row);
+    if(!isset($data[$row[2]]) || $row[1]==''){
+      $data[$row[2]] = array('tags' => array($row[0]), 'content' => $row[1]);
+    }else{
+      array_push($data[$row[2]]['tags'], $row[0]);
+    }
+    if(empty($row[1])){
+      array_push($undesctag, $row[0]);
+    }
   } 
 
   $tags = array();
@@ -314,6 +322,7 @@ function myDump(){
   }
 
   global $view;
+  $view['utags'] = $undesctag;
   $view['data'] = $data;
   $view['tags'] = $tags;
   $view['name'] = $user;
