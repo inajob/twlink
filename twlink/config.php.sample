@@ -1,0 +1,3 @@
+<?php
+define("TW_CONSUMER_KEY","xxxxxxx");
+define("TW_CONSUMER_SECRET","xxxxxxxxxxxxxxxxxxxx");
