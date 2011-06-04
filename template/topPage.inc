@@ -50,7 +50,6 @@ foreach($view['data'] as $v){
 <br class="clbr" />
 </p>
 
-
 <div class="msg">
   <h3>これは何？</h3>
   Twitterのユーザにタグをつけることができます。
