@@ -4,6 +4,8 @@ require_once("config.php");
 
 $method = $_REQUEST['action'];
 
+session_start();
+
 function esc($s){
   return htmlspecialchars($s,ENT_QUOTES,"UTF-8");
   #return $s;
@@ -153,7 +155,6 @@ function updateContent($db,$cid,$content){
 
 
 function login(){
-  session_start();
   global $view;
 
   if((!isset($_SESSION['oauth_token']) || $_SESSION['oauth_token']===NULL) &&
@@ -165,13 +166,14 @@ function login(){
     $_SESSION['request_token_secret'] = $tok['oauth_token_secret'];
     
     $view["url"] = $to->getAuthorizeURL($token);
+    header("Location: " . $view["url"]);
   }else{
     $view['info'] = 'already login';
   }
   return true;
 }
 function callback(){
-  session_start();
+  global $view;
   if((isset($_SESSION['request_token']) && $_SESSION['request_token']!==NULL) &&
      (isset($_SESSION['request_token_secret']) && $_SESSION['request_token_secret']!==NULL) &&
      (isset($_GET['oauth_verifier']) && $_GET['oauth_verifier']) &&
@@ -190,13 +192,18 @@ function callback(){
     
     //ユーザ登録?
     $ret = mkUser(dbInit(), $_SESSION['screen_name']);
+/*  デバッグ用
     if($ret==-1){
       echo "user reginster error\n";
     }else{
       echo "user-id: $ret\n";
     }
+*/
 
     $view['info'] = "welcome " . $_SESSION['screen_name'];
+    
+    // 成功したときは、マイページへリダイレクト
+    redirect( "my" );
 
   }elseif(isset($_SESSION['user_id']) && $_SESSION['user_id'] !== NULL){
     ## ---- RE CALLBACK ---- ( unusual )
@@ -207,9 +214,17 @@ function callback(){
   return true;
 }
 function logout(){
-  session_start();
-    session_destroy();
-    return  true;
+  session_destroy();
+
+  // ログアウト時は、トップページへリダイレクト
+  redirect( "top" );
+
+  return  true;
+}
+
+function redirect( $action ){
+    header('Location: ' . 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?action=" . $action);
+    exit;
 }
 
 function tagDump($tag){
@@ -363,7 +378,6 @@ function check(){
   }
 }
 function _check(){
-  session_start();
   if(isset($_SESSION['user_id']) && $_SESSION['user_id'] !== NULL){
     return true;
   }else{
