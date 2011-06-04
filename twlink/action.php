@@ -137,7 +137,7 @@ function mkUser($db, $user){
   return $index;
 }
 function mkContent($db,$content){
-  $tag = mb_substr($tag,0,256,'UTF-8');  # 制限
+  $tag = mb_substr($tag,0,$content,'UTF-8');  # 制限
   $ret = dbe($db,"INSERT INTO content(content, updated) values (?, datetime('now', 'localtime'))",array($content));
   if($ret)$index = $db->lastInsertId();
   else $index = -1;
