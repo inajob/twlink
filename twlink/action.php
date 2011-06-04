@@ -165,6 +165,7 @@ function login(){
     $_SESSION['request_token_secret'] = $tok['oauth_token_secret'];
     
     $view["url"] = $to->getAuthorizeURL($token);
+    header("Location: " . $view["url"]);
   }else{
     $view['info'] = 'already login';
   }
