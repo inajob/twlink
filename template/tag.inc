@@ -23,6 +23,15 @@
        ?>
     <br class="clbr" />
   </p>
+    <?php if(_check()){ ?>
+			<form method="post">
+			<textarea name="content"><?php echo $view['my'][1]; ?></textarea>
+			<input type="submit" value="自分のコメントを更新" />
+			<input type="hidden" name="action" value="content" />
+			<input type="hidden" name="cid" value="<?php echo $view['my'][2]; ?>" />
+			<input type="hidden" name="screen_name" value="<?php echo $_SESSION['screen_name']; ?>" />
+			</form>
+    <?php } ?>
 </div>
 
 <?php require('footer.inc');?>

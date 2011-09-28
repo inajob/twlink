@@ -281,6 +281,22 @@ function tagDump($tag){
   global $view;
   $view['tag'] = $tag;
   $view['data'] = $data;
+
+  # ログインしていたら自分の情報も返す
+  if(_check()){
+    $sth = dbq($db,"SELECT DISTINCT" .
+	       " user.name,content.content,content.id" .
+	       " FROM user,tag,tag_user".
+	       " LEFT JOIN tag_user_content on".
+	       " tag_user_content.tid = tag.id AND tag_user_content.uid = user.id".
+	       " LEFT JOIN content on".
+	       " tag_user_content.cid = content.id".
+	       " WHERE user.id=tag_user.target AND tag.id=tag_user.tid AND tag.name=? AND user.name=?"
+	       ,array($tag,$_SESSION['screen_name']));
+    $view['my'] = $sth->fetch();
+  }else{
+    $view['my'] = "";
+  }
 }
 
 function userDump($user){
