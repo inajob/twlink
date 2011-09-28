@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS ext;
 DROP TABLE IF EXISTS tag_user;
 DROP TABLE IF EXISTS content;
 DROP TABLE IF EXISTS tag_user_content;
@@ -12,6 +13,11 @@ CREATE TABLE tag (
 CREATE TABLE user (
        id INTEGER PRIMARY KEY,
        name TEXT UNIQUE
+);
+
+CREATE TABLE ext (
+       id INTEGER PRIMARY KEY,
+       ip TEXT UNIQUE
 );
 
 CREATE TABLE tag_user(

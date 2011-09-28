@@ -15,14 +15,24 @@
   
   <?php foreach($view['data'] as $v){?>
   <div class="<?php
-if(empty($v[1])){
+if(empty($v['content'])){
 echo 'tag-piece-min';
 }else{
 echo 'tag-piece';
 }
 ?>">
-    <h2><a href="?action=tag&tag=<?php echo urlencode($v[0]); ?>"><?php echo esc($v[0]); ?></a></h2>
-    <div class="desc"><?php echo esc($v[1]); ?></div>
+<div class="tags">
+<?php
+foreach($v['tags'] as $name){
+?>
+    <span class="name"><a href="?action=tag&tag=<?php echo urlencode($name); ?>"><?php echo esc($name); ?></a></span>
+<?php
+  }
+?>
+</div>
+				     <?php if(!empty($v['content'])){?>
+    <div class="desc"><?php echo esc($v['content']); ?></div>
+						   <?php } ?>
   </div>
   <?php
        }

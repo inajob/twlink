@@ -51,6 +51,24 @@ function tlink($db, $tag, $target, $user){
   return true;
 }
 
+function ext_tlink($db, $tag, $target, $ip){
+  // tag text,target text,user text
+  $ret = mkTag($db, $tag, $target);
+  $ret2 = mkUser($db, $target); # user id?
+  $ret3 = mkExt($db, $ip);      # ext ip
+  if($ret == -1 || $ret2 == -1 )return false;
+  # extの時は負のIDになる
+  $sth = dbq($db, 'SELECT id from tag_user where tid=? AND target=? AND uid=?', array($ret,$ret2,-$ret3));
+  $rarr = $sth->fetch();
+  if($rarr === false){
+    $sth = $db->prepare('INSERT INTO tag_user(tid,target,uid) values(?,?,?)');
+    $ret3 = $sth->execute(array($ret,$ret2,-$ret3));
+    return $ret3;
+  }
+  return true;
+}
+
+
 function utlink($db,$tid){
   $user = mkUser($db, $_SESSION['screen_name']);
   $ret = dbe($db,'DELETE FROM tag_user WHERE tid=? AND uid=?',array($tid,$user));
@@ -103,7 +121,23 @@ function mkTag($db, $tag){
   return $index;
 }
 
+function mkExt($db, $ext){
+  $tag = mb_substr($ext,0,64,'UTF-8');  # 制限
+  $sth = dbq($db,'SELECT id from ext where ip=?',array($ext));
+  $rarr = $sth->fetch();
+  if($rarr === false){
+    $ret = dbe($db,'INSERT INTO ext(ip) values (?)',array($ext));
+    if($ret)$index = $db->lastInsertId();
+    else $index = -1;
+  }else{
+    $index = $rarr[0];
+  }
+  return $index;
+}
+
+
 function twUserCheck($user){
+  // Twitter user
   // user text
   $to = new TwitterOAuth(TW_CONSUMER_KEY,TW_CONSUMER_SECRET,
 			 $_SESSION['oauth_token'],
@@ -254,7 +288,7 @@ function userDump($user){
 
   $db = dbInit();
   $sth = dbq($db,"SELECT DISTINCT" .
-	     " tag.name,content.content" .
+	     " tag.name,content.id,content.content" .
 	     " FROM user,tag,tag_user".
 	     " LEFT JOIN tag_user_content on".
 	     " tag_user_content.tid = tag.id AND tag_user_content.uid = user.id".
@@ -265,9 +299,19 @@ function userDump($user){
 	     ,array($user));
 
   $data = array();
+  $tmp = array();
+  $preid = -1;
   while($row = $sth->fetch()){
-    array_push($data,$row);
+    if($preid == $row[1] && $row[1] != null){
+      array_push($tmp['tags'],$row[0]);
+    }else{
+      // new
+      if(!empty($tmp))array_push($data,$tmp);
+      $tmp = array('tags' => array($row[0]), 'content' => $row[2]);
+    }
+    $preid = $row[1];
   } 
+  array_push($data,$tmp); // last one
   global $view;
   $view['data'] = $data;
   $view['user'] = $user;
@@ -529,40 +573,46 @@ function margePage(){
   return clink($db, $_REQUEST['tag'], $user, $cid);
 }
 
+
 //=======================================-
-function mkPage($fname,$login,$red,$title){
+define('MODE_PAGE'  ,0);
+define('MODE_METHOD',1);
+define('MODE_API   ',2);
+
+function mkPage($fname,$login,$type,$title){
   return array(
 	       'func' => $fname,
-	       'login' => $login,
-	       'red'   => $red,
-	       'title' => $title
+	       'login' => $login,  // ログインが必要か
+	       //'red'   => ($type!=0),    // 即リダイレクトか(テンプレ不要) // Type 0=page,1=method,2=api
+	       'type'  => $type,
+	       'title' => $title   // 日本語名
 	       );
 }
-
-
 
 ###############################
 ## DISPATCHER
 ###############################
 $route=array(
-	     'login'    => mkPage('login'        ,false,false,'ログイン'), //
-	     'callback' => mkPage('callback'     ,false,false,'ログイン完了'), // r
-	     'logout'   => mkPage('logout'       ,false ,false,'ログアウト'), // 
-	     'check'    => mkPage('check'        ,false,false,''), // api
-	     'tags'     => mkPage('tagsPage'     ,false,false,'タグ一覧'), // 
-	     'users'    => mkPage('usersPage'    ,false,false,'ユーザ一覧'), // 
-	     'tag'      => mkPage('tagPage'      ,false,false,'タグ情報'), // 
-	     'user'     => mkPage('userPage'     ,false,false,'ユーザ情報'), // 
-	     'my'       => mkPage('myPage'       ,true ,false,'マイページ'), // 
-	     'content'  => mkPage('contentPage'  ,true ,true ,''), // r
-	     'dump'     => mkPage('dump'         ,false,false,'ダンプ'), // 
-	     'link'     => mkPage('linkPage'     ,true ,true ,''), // r
-	     'utlink'   => mkPage('utlinkPage'   ,true ,true ,''),  // r
-	     'top'      => mkPage('topPage'      ,false,false,'トップ'),  //
-	     'follower' => mkPage('followerPage' ,false,false,'フォロワー'),  //
-	     'friend'   => mkPage('friendPage'   ,true,false,'友達'),  //
-	     'marge'    => mkPage('margePage'    ,true,true,''),  //
-	     'uclink'   => mkPage('uclinkPage'   ,true,true,'')  //
+	     'login'    => mkPage('login'   ,false,MODE_PAGE  ,'ログイン'),     //
+	     'callback' => mkPage('callback',false,MODE_PAGE  ,'ログイン完了'), // r
+	     'logout'   => mkPage('logout'  ,false,MODE_PAGE  ,'ログアウト'),   // 
+	     'check'    => mkPage('check'   ,false,MODE_PAGE  ,''),             // api
+	     'tags'     => mkPage('tags'    ,false,MODE_PAGE  ,'タグ一覧'),     // 
+	     'users'    => mkPage('users'   ,false,MODE_PAGE  ,'ユーザ一覧'),   // 
+	     'tag'      => mkPage('tag'     ,false,MODE_PAGE  ,'タグ情報'),     // 
+	     'user'     => mkPage('user'    ,false,MODE_PAGE  ,'ユーザ情報'),   // 
+	     'my'       => mkPage('my'      ,true ,MODE_PAGE  ,'マイページ'),   // 
+	     'content'  => mkPage('content' ,true ,MODE_METHOD,''),             // r
+	     'dump'     => mkPage('dump'    ,false,MODE_PAGE  ,'ダンプ'),       // 
+	     'link'     => mkPage('link'    ,true ,MODE_METHOD,''),             // r
+	     'utlink'   => mkPage('utlink'  ,true ,MODE_METHOD,''),             // r
+	     'top'      => mkPage('top'     ,false,MODE_PAGE  ,'トップ'),       //
+	     'follower' => mkPage('follower',false,MODE_PAGE  ,'フォロワー'),   //
+	     'friend'   => mkPage('friend'  ,true,MODE_PAGE  ,'友達'),          //
+	     'marge'    => mkPage('marge'   ,true,MODE_METHOD,''),              //
+	     'uclink'   => mkPage('uclink'  ,true,MODE_METHOD,''),              //
+
+	     'link_ext' => mkPage('link_ext',false,MODE_API  ,'外部API')         //
 	     );
 $view = array();
 
@@ -572,18 +622,17 @@ if(isset($route[$method])){
 
     global $view;
     $view['title'] = $route[$method]['title'];
-    $ret = call_user_func($route[$method]['func']);
+    #$ret = call_user_func($route[$method]['func']);
+    include('../action/' . $route[$method]['func']. '.inc');
 
-    if($route[$method]['red']===false){
-      #echo $view['title'];
-      include('../template/'.$route[$method]['func']. '.inc');
-    }
     #echo var_export($ret,true) . "\n";
     #echo $route[$method]['red'] . "\n";
     #echo $logined . "\n";
     #echo $_SESSION['redirect'];
     if($ret){
-      if($route[$method]['red'] === true){
+      if($route[$method]['type']===MODE_PAGE || $route[$method]['type']===MODE_API){
+	include('../template/'.$route[$method]['func']. '.inc');
+      }else if($route[$method]['type'] === MODE_METHOD){
 	if($logined){
 	  if(isset($_SESSION['redirect'])){
 	    header("Location: " . $_SESSION['redirect']);
@@ -596,11 +645,18 @@ if(isset($route[$method])){
 	}
       }
     }else{
-      $view['info'] =  "error";
-      include('../template/error.inc');
+      if($route[$method]['type'] === MODE_METHOD || $route[$method]['type'] === MODE_PAGE){
+	$view['info'] =  "error";
+	include('../template/error.inc');
+      }else{
+	// MODE_API
+	$view['info'] =  "error";
+	include('../template/error_api.inc');
+      }
     }
     
-    if($route[$method]['red'] === false && $logined){
+    // 次のMETHODの為に現ページを記録
+    if($route[$method]['type'] === MODE_PAGE && $logined){
       $_SESSION['redirect'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . '?' . $_SERVER["QUERY_STRING"];
     }
   }else{

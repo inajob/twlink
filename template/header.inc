@@ -61,25 +61,45 @@ textarea{
  margin:0.5em;
   word-break: break-all;
  }
-.tag-piece h2{
- background-color:#9dd;
+.tags{
+  font-size:large;
+ padding:0.5em;
+ }
+.tags .name{
+  background-color:#9dd;
+  font-size:x-large;
+ }
+.tag-piece h2.name{
+  text-align:left;
+ }
+.tag-piece-min h2{
+  font-size:small;
  }
 .tag-piece{
-  float:left;
   background-color:#dfd;
- border:solid;
- margin:0.1em;
+  border:solid 1px;
+  text-align:left;
+ margin:0.5em;
  padding:0em;
- width:30%;
- height:100px;
   word-break: break-all;
  }
+.desc{
+  background-color:white;
+ padding:0.5em;
+ }
+.desc h2{ 
+  text-align:left;  
+}
+.desc h2{ 
+  text-align:left;  
+}
 .tag-piece-min{
-  float:left;
- border:solid 1px;
+    float:left;
+  border:solid 1px;
  margin:0.1em;
  padding:0.1em;
- width:30%;
+    text-align:left;
+    /*width:30%;*/
   word-break: break-all;
  }
 .descw{
