@@ -24,13 +24,16 @@
     <br class="clbr" />
   </p>
     <?php if(_check()){ ?>
+			<div class="com">
+			<h2><?php echo esc($_SESSION['screen_name']); ?> の <?php echo esc($view['tag'])?> へのコメント</h2>
 			<form method="post">
 			<textarea name="content"><?php echo $view['my'][1]; ?></textarea>
-			<input type="submit" value="自分のコメントを更新" />
+			<input type="submit" value="コメントを更新" />
 			<input type="hidden" name="action" value="content" />
 			<input type="hidden" name="cid" value="<?php echo $view['my'][2]; ?>" />
 			<input type="hidden" name="screen_name" value="<?php echo $_SESSION['screen_name']; ?>" />
 			</form>
+			</div>
     <?php } ?>
 </div>
 

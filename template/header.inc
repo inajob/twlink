@@ -111,6 +111,10 @@ div.bar{
   background-color:#ddf;
   padding-left:1em;
 }
+.com{
+  background-color:#dff;
+  padding:1em;
+ }
 h2{
   text-align:center;
 }
