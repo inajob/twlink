@@ -11,7 +11,7 @@
 
   <p>
     <?php foreach($view['data'] as $v){?>
-    <?php if(empty($v[1])){?>
+    <?php if($v[1] !== null){?>
     <div class="tag-piece-min">
       <?php }else{ ?>
       <div class="tag-piece-list">
