@@ -15,7 +15,7 @@
   
   <?php foreach($view['data'] as $v){?>
   <div class="<?php
-if($v['content'] !== null){
+if($v['content']===null){
 echo 'tag-piece-min';
 }else{
 echo 'tag-piece';
