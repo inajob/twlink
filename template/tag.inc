@@ -37,8 +37,9 @@
       <textarea name="content"><?php echo $view['my'][1]; ?></textarea>
       <input type="submit" value="コメントを更新" />
       <input type="hidden" name="action" value="content" />
-      <input type="hidden" name="cid" value="<?php echo $view['my'][2]; ?>" />
-      <input type="hidden" name="screen_name" value="<?php echo $_SESSION['screen_name']; ?>" />
+      <input type="hidden" name="cid" value="<?php echo esc($view['my'][2]); ?>" />
+      <input type="hidden" name="tag" value="<?php echo esc($view['tag']); ?>" />
+      <input type="hidden" name="screen_name" value="<?php echo esc($_SESSION['screen_name']); ?>" />
     </form>
   </div>
   <?php } ?>

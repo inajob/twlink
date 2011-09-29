@@ -8,6 +8,7 @@
      if(empty($cid)){
        $cid = mkContent($db,$content);
        error_log('contentPage: '.$cid.' '.$tag.' '.$user);
+       tlink($db, $tag, $user, $user); // 自分に付ける
        clink($db, $tag,$user,$cid);
        $ret = true; # todo: ok?
      }else{
