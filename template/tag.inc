@@ -20,7 +20,7 @@
 	  <img src="http://img.tweetimag.es/i/<?php echo urlencode($v[0]); ?>"/><br />
 	  <a href="?action=user&user=<?php echo urlencode($v[0]); ?>"><?php echo esc($v[0]); ?></a>
 	</h2>
-	<?php if(!empty($v[1])){ ?>
+	<?php if($v[1] !== null){ ?>
 	<div class="desc lfloat"><?php echo esc($v[1]); ?></div>
 	<br class="clbr" />
 	<?php } ?>

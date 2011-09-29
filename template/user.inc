@@ -30,7 +30,7 @@ foreach($v['tags'] as $name){
   }
 ?>
 </div>
-				     <?php if(!empty($v['content'])){?>
+				     <?php if($v['content'] !== null){?>
     <div class="desc"><?php echo esc($v['content']); ?></div>
 						   <?php } ?>
   </div>
