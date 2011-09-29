@@ -272,7 +272,8 @@ function tagDump($tag){
 	     " tag_user_content.tid = tag.id AND tag_user_content.uid = user.id".
 	     " LEFT JOIN content on".
 	     " tag_user_content.cid = content.id".
-	     " WHERE user.id=tag_user.target AND tag.id=tag_user.tid AND tag.name=?"
+	     " WHERE user.id=tag_user.target AND tag.id=tag_user.tid AND tag.name=?".
+	     "ORDER BY content.id desc"
 	     ,array($tag));
   $data = array();
   while($row = $sth->fetch()){

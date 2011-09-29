@@ -12,6 +12,19 @@
    p{
    margin:1em;
    }
+.desc ul{
+  margin-left:1em;
+}
+.desc h1{
+  font-size:large;
+}
+.desc h2{
+  font-size:medium;
+}
+.desc h3{
+  font-size:small;
+}
+
    div.login{
    text-align:right;
      padding-right:1em;
@@ -52,7 +65,7 @@ td{
    }
 textarea{
  width:98%;
- height:60px;
+ height:240px;
 }
 .tag{
  padding:0.2em;
@@ -82,11 +95,15 @@ textarea{
  margin:0.5em;
  padding:0em;
   word-break: break-all;
+ width:80%;
  }
 .desc{
   background-color:white;
  padding:0.5em;
  }
+.lfloat{
+  float:left;
+}
 .desc h2{ 
   text-align:left;  
 }
@@ -94,7 +111,7 @@ textarea{
   text-align:left;  
 }
 .tag-piece-min{
-    float:left;
+  float:left;
   border:solid 1px;
  margin:0.1em;
  padding:0.1em;
@@ -102,6 +119,19 @@ textarea{
     /*width:30%;*/
   word-break: break-all;
  }
+.tag-piece-list{
+  /*float:left;*/
+  border:solid 1px;
+ margin:0.1em;
+ padding:0.1em;
+    text-align:left;
+    /*width:30%;*/
+  word-break: break-all;
+ }
+.tag-piece-list h2{
+  float:left;
+}
+
 .descw{
     word-break: break-all;
     background-color:white;
