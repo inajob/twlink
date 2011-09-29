@@ -1,8 +1,13 @@
 <?php require('header.inc');?>
+<div class="center">
+  <h2>
+    <img src="http://img.tweetimag.es/i/<?php echo urlencode($view['user']); ?>"/>
+    <a href="?action=user&user=<?php echo urlencode($view['user']); ?>"><?php echo esc($view['user']);?></a>
+  </h2>
+  <a href="https://twitter.com/<?php echo urlencode($view['user']); ?>" class="twitter-follow-button" data-show-count="false">Follow @<?php echo esc($view['user']); ?></a>
+  <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+</div>
 
-<h2><img src="http://img.tweetimag.es/i/<?php echo urlencode($view['user']); ?>"/>
-  <a href="?action=user&user=<?php echo urlencode($view['user']); ?>"><?php echo esc($view['user']);?></a>
-</h2>
 <div class="center">
   <p>
     <form method="post">

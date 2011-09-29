@@ -67,12 +67,16 @@ textarea{
  width:98%;
  height:240px;
 }
+.center{
+  text-align:center;
+}
 .tag{
  padding:0.2em;
  border:solid 1px;
   float:left;
- margin:0.5em;
+ margin:3px;
   word-break: break-all;
+  background-color:white;
  }
 .tags{
   font-size:large;
