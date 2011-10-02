@@ -615,7 +615,7 @@ function margePage(){
 //=======================================-
 define('MODE_PAGE'  ,0);
 define('MODE_METHOD',1);
-define('MODE_API   ',2);
+define('MODE_API',2);
 
 function mkPage($fname,$login,$type,$title){
   return array(
