@@ -353,7 +353,8 @@ function tagsDump(){
   $data = array();
   $sth = dbq($db,"SELECT" .
 	     " name,count(tag_user.id)" .
-	     " FROM tag left join tag_user on tag_user.tid=tag.id group by tag.id");
+	     " FROM tag left join tag_user on tag_user.tid=tag.id group by tag.id" .
+	     " ORDER BY tag.name" );
   while($row = $sth->fetch()){
     array_push($data,$row);
   } 
