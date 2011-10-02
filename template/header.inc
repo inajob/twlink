@@ -183,11 +183,17 @@ img.half{
 
    --></style>
    <script src="jquery-1.6.1.min.js"></script>
-   <script src="wiki.js"></script>
-<!-- マジック これ怖いかな？ -->
+   <script src="wiki.js"></script><!-- マジック これ怖いかな？ -->
+  
+  <link rel="stylesheet" type="text/css" href="jquery.autocomplete.css" />
+  <script src="jquery.autocomplete.min.js"></script>
 <script>
 <!--
+
 $(function(){
+    $.escapeHTML = function(val) {
+      return $("<div/>").text(val).html();
+    };
     $(".desc").each(function(e){
 	var wiki = new WikiParser();
 	var s = this.innerHTML;

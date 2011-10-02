@@ -361,6 +361,27 @@ function tagsDump(){
   $view['data'] = $data;
 }
 
+function tagsSearch($q){
+  // user text
+  $db = dbInit();
+  $data = array();
+  $sth = dbq($db,"SELECT" .
+	     " name".
+	     ",count(tag_user.id)" .
+	     " FROM tag".
+	     " left join tag_user on tag_user.tid=tag.id".
+	     " WHERE tag.name like ?" .
+	     " group by tag.id"
+	     ,array('%' . $q . '%')
+	     );
+  while($row = $sth->fetch()){
+    array_push($data,$row);
+  } 
+  global $view;
+  $view['data'] = $data;
+}
+
+
 function myDump(){
   // user text
   $user = $_SESSION['screen_name'];
@@ -629,7 +650,8 @@ $route=array(
 	     'marge'    => mkPage('marge'   ,true,MODE_METHOD,''),              //
 	     'uclink'   => mkPage('uclink'  ,true,MODE_METHOD,''),              //
 
-	     'link_ext' => mkPage('link_ext',false,MODE_API  ,'外部API')         //
+	     'link_ext' => mkPage('link_ext',false,MODE_API  ,'外部API'),        //
+	     'taglist'  => mkPage('taglist' ,false,MODE_API  ,'タグ一覧')        //
 	     );
 $view = array();
 

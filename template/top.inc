@@ -1,7 +1,17 @@
 <?php require('header.inc');?>
 
+
 <script>
 <!--
+    $(function(){
+    // on start
+    
+    $('#tag').autocomplete('?action=taglist',{
+    formatItem:function(s){return $.escapeHTML(s[0]);}
+    });
+    
+    });
+
     function autoInput(id,s){
     var d = document.getElementById(id);
     d.value = s;
