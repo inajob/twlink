@@ -9,6 +9,10 @@
     $('#tag').autocomplete('?action=taglist',{
     formatItem:function(s){return $.escapeHTML(s[0]);}
     });
+
+    $('#target').autocomplete('?action=userlist',{
+    formatItem:function(s){return $.escapeHTML(s[0]);}
+    });
     
     });
 

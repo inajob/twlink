@@ -347,6 +347,22 @@ function usersDump(){
   $view['data'] = $data;
 }
 
+function usersSearch($q){
+  // user text
+  $db = dbInit();
+  $sth = dbq($db,"SELECT" .
+	     " name" .
+	     " FROM user".
+	     " WHERE name like ?",
+	     array('%'.$q.'%'));
+  $data = array();
+  while($row = $sth->fetch()){
+    array_push($data,$row);
+  } 
+  global $view;
+  $view['data'] = $data;
+}
+
 function tagsDump(){
   // user text
   $db = dbInit();
@@ -652,7 +668,8 @@ $route=array(
 	     'uclink'   => mkPage('uclink'  ,true,MODE_METHOD,''),              //
 
 	     'link_ext' => mkPage('link_ext',false,MODE_API  ,'外部API'),        //
-	     'taglist'  => mkPage('taglist' ,false,MODE_API  ,'タグ一覧')        //
+	     'taglist'  => mkPage('taglist' ,false,MODE_API  ,'タグ一覧'),        //
+	     'userlist' => mkPage('userlist' ,false,MODE_API  ,'ユーザ一覧')        //
 	     );
 $view = array();
 

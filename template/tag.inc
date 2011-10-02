@@ -1,9 +1,17 @@
 <?php require('header.inc');?>
 <h2><?php echo esc($view['tag']);?></h2>
 
+<script>
+  $(function(){
+    $('#target').autocomplete('?action=userlist',{
+    formatItem:function(s){return $.escapeHTML(s[0]);}
+    });
+});
+</script>
+
 <div class="center">
   <form method="post">
-    <input type="text" name="target" />
+    <input type="text" id="target" name="target" />
     <input type="submit" value="ユーザにこのタグをつける" />
     <input type="hidden" name="action" value="link" />
     <input type="hidden" name="tag" value="<?php echo esc($view['tag']); ?>" />
