@@ -12,6 +12,9 @@
    p{
    margin:1em;
    }
+input{
+padding:1em;
+}
 .desc ul{
   margin-left:1em;
 }
