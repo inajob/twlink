@@ -2,7 +2,7 @@
 <?php
 function tagged($v){
    global $view;
-   echo '<td>' . $v[0] . '</td>';
+   echo '<td>' . esc($v[0]) . '</td>';
    ?>
 <td>
   <form class="inline" method="post">
@@ -19,7 +19,7 @@ function tagged($v){
 <?php
 function untagged($v){
    global $view;
-   echo "<td>" . $v[0] . "</td>";
+   echo "<td>" . esc($v[0]) . "</td>";
    ?>
 <td>
   <form class="inline" method="post">
@@ -48,11 +48,13 @@ if($v[2] == $view['uid']){ // uid    === myid
 <?php
 }
 }else{
+/*
 ?>
 <tr><td>[un-tagged]</td>
   <?php tagged($v); ?>
 </tr>
 <?php
+*/
 }
 ?>
 <?php } ?>
