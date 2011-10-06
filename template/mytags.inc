@@ -2,7 +2,7 @@
 <?php
 function tagged($v){
    global $view;
-   echo '<td>' . esc($v[0]) .'::'.$v[4]. '</td>';
+   echo '<td>' . esc($v[0]) . '</td>';
    ?>
 <td>
   <form class="inline" method="post">
@@ -19,7 +19,7 @@ function tagged($v){
 <?php
 function untagged($v){
    global $view;
-   echo "<td>" . esc($v[0]) .'::'.$v[4] . "</td>";
+   echo "<td>" . esc($v[0]) . "</td>";
    ?>
 <td>
   <form class="inline" method="post">
