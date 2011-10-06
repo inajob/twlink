@@ -35,8 +35,8 @@ function untagged($v){
 <table>
 <?php foreach($view['data'] as $v){ ?>
 <?php   
-if($v[3] == $view['uid'] || !empty($v[4])){ // target === myid
-if($v[2] == $view['uid'] || !empty($v[4])){ // uid    === myid
+if($v[3] == $view['uid']){ // target === myid
+if($v[2] == $view['uid']){ // uid    === myid
 ?>
 <tr><td>[my-tagged]</td>
   <?php untagged($v); ?>
