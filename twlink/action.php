@@ -653,6 +653,7 @@ $route=array(
 	     'logout'   => mkPage('logout'  ,false,MODE_PAGE  ,'ログアウト'),   // 
 	     'check'    => mkPage('check'   ,false,MODE_PAGE  ,''),             // api
 	     'tags'     => mkPage('tags'    ,false,MODE_PAGE  ,'タグ一覧'),     // 
+	     'mytags'   => mkPage('mytags'  ,true ,MODE_PAGE  ,'MY タグ一覧'),  // 
 	     'users'    => mkPage('users'   ,false,MODE_PAGE  ,'ユーザ一覧'),   // 
 	     'tag'      => mkPage('tag'     ,false,MODE_PAGE  ,'タグ情報'),     // 
 	     'user'     => mkPage('user'    ,false,MODE_PAGE  ,'ユーザ情報'),   // 

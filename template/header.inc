@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
    <head>
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+   <meta name="viewport" content="width=device-width; initial-scale=1.5; maximum-scale=3.0; user-scalable=1;">
    <title>twlink</title>
    <style><!--
    *{
@@ -15,6 +15,14 @@
 input{
 padding:1em;
 }
+.inline{
+display:inline;
+}
+
+h1.top{
+text-align:center;
+}
+
 .desc ul{
   margin-left:1em;
 }
@@ -74,8 +82,9 @@ textarea{
   text-align:center;
 }
 .tag{
- padding:0.2em;
- border:solid 1px;
+ padding:0.5em;
+ border:solid 1px #66d;
+ border-width:2px 2px 2px 10px;
   float:left;
  margin:3px;
   word-break: break-all;
@@ -210,7 +219,7 @@ $(function(){
 
   </head>
   <body>
-    <h1><a href="?action=top">twlink</a></h1>
+    <h1 class="top"><a href="?action=top">twlink</a></h1>
    <div class="login">
    <?php
   if(session_id()==="" || _check()){
