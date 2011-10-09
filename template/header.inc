@@ -22,6 +22,9 @@ display:inline;
 h1.top{
 text-align:center;
 }
+h2.top{
+background-color:white;
+}
 
 .desc ul{
   margin-left:1em;
@@ -81,6 +84,7 @@ textarea{
 .center{
   text-align:center;
 }
+
 .tag{
  padding:0.5em;
  border:solid 1px #66d;
@@ -233,6 +237,7 @@ $(function(){
 <!--  <a href="action.php?action=follower">follower</a> -->
   <a href="action.php?action=friend">friend</a>
   <a href="action.php?action=my">my</a>
+  <a href="action.php?action=mytags">my2</a>
 <!--  <a href="action.php?action=users">users</a>-->
 <!--  <a href="action.php?action=tags">tags</a>-->
 </div>
