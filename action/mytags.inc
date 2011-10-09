@@ -10,9 +10,11 @@ $sth = dbq($db,"SELECT" .
 	   "tag.id,".            # 1
 	   "tag_user.uid,".      # 2
 	   "tag_user.target,".   # 3
-	   "tag_user_content.id".# 4
+	   "tag_user_content.id,".# 4
+	   "content.content".# 5
 	   " FROM tag left join tag_user on tag_user.tid=tag.id and tag_user.target=?" .
 	   " left join tag_user_content on tag_user_content.tid=tag.id and tag_user_content.uid=?".
+	   " left join content on tag_user_content.cid=content.id".
 	   " ORDER BY tag.name" , array($uid,$uid));
 
 $tags_content = array();

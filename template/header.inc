@@ -120,6 +120,7 @@ textarea{
 .desc{
   background-color:white;
  padding:0.5em;
+ text-align:left;
  }
 .lfloat{
   float:left;

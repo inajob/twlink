@@ -21,6 +21,14 @@
 function printTag($name){
    return '<a href="?action=tag&tag=' . urlencode($name) . '">' . esc($name) . '</a>';
 }
+function printContent($v){
+   return 
+   ''.
+   '<h3>' . printTag($v[0]) . '</h3>'.
+   '<div class="desc">' . esc($v[5]) . '</div>'.
+   '';
+}
+
 function printTag2($name){
    global $view;
    return
@@ -36,7 +44,7 @@ function tagged($v){
    echo '<div class="tag">' . printTag($v[0]) . '';
    ?>
   <form class="inline" method="post">
-    <input type="submit" value="自分にタグをつける">
+    <input type="submit" value="+">
     <input type="hidden" name="tag" value="<?php echo esc($v[0]) ?>">
     <input type="hidden" name="target" value="<?php echo esc($view['uname']) ?>">
     <input type="hidden" name="action" value="link">
@@ -52,7 +60,7 @@ function untagged($v){
    echo "<div class='tag'>" . printTag($v[0]) . "";
    ?>
   <form class="inline" method="post">
-    <input type="submit" value="タグを外す">
+    <input type="submit" value="-">
     <input type="hidden" name="tid" value="<?php echo esc($v[1]) ?>">
     <input type="hidden" name="action" value="utlink">
   </form>
@@ -85,7 +93,7 @@ function untagged($v){
     消す場合はまず記事を消してください。
   </p>
   <?php foreach($view['tags_content'] as $v){
-	echo '<div class="tag">' . printTag($v[0]) . '</div>';
+	echo '<div class="tag-piece">' . printContent($v) . '</div>';
 	} ?>
   <br class="clbr">
 
