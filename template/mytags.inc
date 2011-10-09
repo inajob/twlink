@@ -79,22 +79,31 @@ function untagged($v){
     </form>
   </p>
 
+  <h2 class="top">記事付きタグ</h2>
+  <p>
+    あなたが記事を作成したタグです。
+    消す場合はまず記事を消してください。
+  </p>
+  <?php foreach($view['tags_content'] as $v){
+	echo '<div class="tag">' . printTag($v[0]) . '</div>';
+	} ?>
+  <br class="clbr">
 
   <h2 class="top">承認タグ</h2>
+  <p>
+    あなたが付けたタグです。
+  </p>
   <?php foreach($view['tags_verified'] as $v){ ?>
   <?php untagged($v); ?>
   <?php } ?>
   <br class="clbr">
   <h2 class="top">未承認タグ</h2>
+  <p>
+    誰かがあなたにつけたタグです
+  </p>
   <?php foreach($view['tags_not_verified'] as $v){ ?>
   <?php tagged($v); ?>
   <?php } ?>
-  <br class="clbr">
-
-  <h2 class="top">記事付きタグ</h2>
-  <?php foreach($view['tags_content'] as $v){
-	echo '<div class="tag">' . printTag($v[0]) . '</div>';
-	} ?>
   <br class="clbr">
     
   <h2 class="top">その他</h2>
