@@ -83,7 +83,7 @@ function untagged($v){
       <input type="text" id="tag" name="tag" />
       <input type="submit" value="タグ登録" />
       <input type="hidden" name="action" value="link" />
-      <input type="hidden" name="target" value="<?php echo esc($view['user']); ?>" />
+      <input type="hidden" name="target" value="<?php echo esc($view['uname']); ?>" />
     </form>
   </p>
 
